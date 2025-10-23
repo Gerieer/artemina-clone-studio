@@ -5,6 +5,8 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // Base para GitHub Pages de proyecto:
+  base: "/artemina-clone-studio/",
   server: {
     host: "::",
     port: 8080,
