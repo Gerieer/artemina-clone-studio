@@ -1,25 +1,15 @@
 name: Build and deploy to GitHub Pages
 
-# Trigger the workflow whenever the main branch is updated.  You can also
-# run this workflow manually from the Actions tab in GitHub.
 on:
   push:
     branches:
       - main
 
-# Grant just the permissions required for deploying to Pages.  The
-# `contents: read` permission lets the runner check out your code,
-# `pages: write` allows publishing to the GitHub Pages environment, and
-# `id-token: write` is needed for the OIDC authentication used during
-# deployment.
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Avoid overlapping deployments.  If a newer commit arrives while a
-# deployment is in progress, the in‑flight job is cancelled so that the
-# latest commit is always what ultimately gets published.
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -28,52 +18,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Fetch the repository’s source code so the build can run against
-      # your actual files.  Without this step there would be nothing to
-      # install or build.
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Prepare a Node.js environment using the same major version as
-      # your development machine.  The cache option reuses the npm
-      # dependencies between runs to speed up installs.
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'npm'
 
-      # Install all project dependencies from package-lock.json.  This
-      # ensures a reproducible build and fails if any required package
-      # cannot be resolved.
       - name: Install dependencies
         run: npm ci
 
-      # Execute the Vite build script.  Because the vite.config.ts
-      # already specifies the correct `base` path for this repo, the
-      # generated assets will reference the correct relative URLs when
-      # served from https://gerieer.github.io/artemina-clone-studio/.
       - name: Build site
         run: npm run build
 
-      # Configure the Pages deployment.  This step sets up the
-      # deployment environment and produces metadata needed by the
-      # subsequent upload and deploy actions.
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
-      # Collect the static site output from the `dist` directory into
-      # an artifact.  This artifact will later be published to GitHub
-      # Pages.  The `upload-pages-artifact` action abstracts away the
-      # details of bundling and storing the artifact.
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
-      # Publish the previously uploaded artifact to the GitHub Pages
-      # environment associated with this repository.  The deploy action
-      # takes care of invalidating caches and updating the live site.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
