@@ -3,7 +3,10 @@ import { Instagram } from "lucide-react";
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/Hero.png')" }}>
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${import.meta.env.BASE_URL}Hero.png)` }}
+      >
         {/* overlay to improve text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
       </div>
