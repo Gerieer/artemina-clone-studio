@@ -3,12 +3,11 @@ import { Introduction } from "@/components/Introduction";
 import { About } from "@/components/About";
 import { Gallery } from "@/components/Gallery";
 import { Contact } from "@/components/Contact";
-import FullpageScroll from "@/components/FullpageScroll";
 
 const Index = () => {
   return (
-    // FullpageScroll will handle wheel/keyboard snapping on desktop and keep native scrolling on mobile
-    <FullpageScroll>
+    // Parent container handles the vertical snapping between full-screen sections
+    <div className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
       <section className="h-screen snap-start">
         <Hero />
       </section>
@@ -28,7 +27,7 @@ const Index = () => {
       <section className="h-screen snap-start">
         <Contact />
       </section>
-    </FullpageScroll>
+    </div>
   );
 };
 
