@@ -6,27 +6,12 @@ import { Contact } from "@/components/Contact";
 
 const Index = () => {
   return (
-    // Parent container handles the vertical snapping between full-screen sections
-    <div className="h-screen snap-y snap-mandatory overflow-y-auto scroll-smooth">
-      <section className="h-screen snap-start">
-        <Hero />
-      </section>
-
-      <section className="h-screen snap-start">
-        <Introduction />
-      </section>
-
-      <section className="h-screen snap-start">
-        <About />
-      </section>
-
-      <section className="h-screen snap-start">
-        <Gallery />
-      </section>
-
-      <section className="h-screen snap-start">
-        <Contact />
-      </section>
+    <div className="min-h-screen">
+      <Hero />
+      <Introduction />
+      <About />
+      <Gallery />
+      <Contact />
     </div>
   );
 };
