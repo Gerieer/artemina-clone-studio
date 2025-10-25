@@ -3,13 +3,9 @@ import { Instagram } from "lucide-react";
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url("https://new.express.adobe.com/webpage/R3TE2is8Z0WlV/resources/758c6651-cafd-4e47-a30e-232a3a2b45c6-mina_01_jpg?asset_id=0cee98ad-0ef5-4749-a43e-267587be3e55&img_etag=%227e67c7f0daba4129baaf4911c88f8da5%22&image_assets=false&size=1024")'
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40" />
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/hero.png')" }}>
+        {/* overlay to improve text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
       </div>
       
       <div className="relative z-10 text-center px-4">
